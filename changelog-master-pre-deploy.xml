@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+
+<databaseChangeLog  
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"  
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<!-- placeholder for system objects creation to be run first during registry deployment -->
+    <property  name="dbname"  value="registry"/>
+    <property  name="reg_version"  value="1.0.0"/>
+
+    <preConditions>  
+		<sqlCheck expectedResult="t">
+			SELECT current_database() = '${dbname}'
+		</sqlCheck>
+    </preConditions>
+
+    <changeSet author="registry owner" id="tag database pre-deploy" context="all">
+        <tagDatabase tag="pre-deploy"/>
+    </changeSet>
+
+    <!-- <include file="changeLogs-preDeploy/extensions.xml" context="all" relativeToChangelogFile="true"/> -->
+    <include file="changeLogs-preDeploy/createTypes.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs-preDeploy/procedures.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs-preDeploy/createDomains.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs-preDeploy/tableRolePermissions.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs-preDeploy/tableLiquibaseMetadata.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs-preDeploy/tablesDataSources.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs-preDeploy/publication.xml" context="pub" relativeToChangelogFile="true" labels="citus"/>
+    <include file="changeLogs-preDeploy/subscription.xml" context="sub" relativeToChangelogFile="true" labels="citus"/>
+
+    <changeSet author="registry owner" id="version control" runAlways="true" runOnChange="true" context="all">
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+            CALL p_version_control('${reg_version}');
+            <comment>Procedure to control and update registry versions</comment>
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

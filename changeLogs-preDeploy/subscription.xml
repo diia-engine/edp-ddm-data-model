@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+
+<databaseChangeLog  
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"  
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">  
+
+	<property  name="conn.dbname"  value="postgres"/>
+	<property  name="conn.host"  value="localhost"/>
+	<property  name="conn.user"  value="postgres"/>
+	<property  name="conn.pwd"  value="xxx"/>
+	<property  name="conn.port"  value="5432"/>
+
+	<changeSet author="registry owner" id="subscription operational_sub" runInTransaction="false">
+	  <sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+		<!-- CREATE SUBSCRIPTION operational_sub CONNECTION 'dbname=${conn.dbname} host=${conn.host} user=${conn.user} password=${conn.pwd} port=${conn.port}' PUBLICATION analytical_pub; -->
+		CREATE SUBSCRIPTION operational_sub CONNECTION 'dbname=${conn.dbname} host=${conn.host} user=${conn.user} port=${conn.port}' PUBLICATION analytical_pub;
+		<comment>Subscription for Logical replication</comment>
+	  </sql>
+      <rollback>
+        <sql splitStatements="true" stripComments="true">DROP SUBSCRIPTION operational_sub;</sql>
+      </rollback>
+	</changeSet>
+
+<!--	<changeSet author="registry owner" id="subscription operational_sub@workers" runInTransaction="false" labels="citus">-->
+<!--		<sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">-->
+<!--			SELECT run_command_on_workers($$-->
+<!--			CREATE SUBSCRIPTION operational_sub CONNECTION 'dbname=${conn.dbname} host=${conn.host} user=${conn.user} port=${conn.port}' PUBLICATION analytical_pub;-->
+<!--			$$);-->
+<!--			<comment>Subscription for Logical replication</comment>-->
+<!--		</sql>-->
+<!--		<rollback>-->
+<!--			<sql splitStatements="true" stripComments="false">-->
+<!--				SELECT run_command_on_workers($$DROP SUBSCRIPTION operational_sub;$$);-->
+<!--			</sql>-->
+<!--		</rollback>-->
+<!--	</changeSet>-->
+
+</databaseChangeLog>

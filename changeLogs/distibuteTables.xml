@@ -1,0 +1,85 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext xsd/dbchangelog-ext.xsd">
+
+<!--    <changeSet author="registry owner" id="distribute table test_pd_processing_consent">-->
+<!--        <comment>create_distributed_table('test_pd_processing_consent')</comment>-->
+<!--        <ext:distributeTable tableName="test_pd_processing_consent" distributionColumn="consent_id"/>-->
+<!--    </changeSet>-->
+
+    <changeSet author="registry owner" id="reference table application_type">
+        <comment>create_reference_table('application_type')</comment>
+        <ext:referenceTable tableName="application_type"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table factor">
+        <comment>create_reference_table('factor')</comment>
+        <ext:referenceTable tableName="factor"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table research">
+        <comment>create_reference_table('research')</comment>
+        <ext:referenceTable tableName="research"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table koatuu">
+        <comment>create_reference_table('koatuu')</comment>
+        <ext:referenceTable tableName="koatuu"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table kopfg">
+        <comment>create_reference_table('kopfg')</comment>
+        <ext:referenceTable tableName="kopfg"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table ownership">
+        <comment>create_reference_table('ownership')</comment>
+        <ext:referenceTable tableName="ownership"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table refusal_reason">
+        <comment>create_reference_table('refusal_reason')</comment>
+        <ext:referenceTable tableName="refusal_reason"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table research">
+        <comment>create_reference_table('research')</comment>
+        <ext:referenceTable tableName="research"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table solution_type">
+        <comment>create_reference_table('solution_type')</comment>
+        <ext:referenceTable tableName="solution_type"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="reference table staff_status">
+        <comment>create_reference_table('staff_status')</comment>
+        <ext:referenceTable tableName="staff_status"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="distribute table laboratory">
+        <comment>create_distributed_table('laboratory')</comment>
+        <ext:distributeTable tableName="laboratory" distributionColumn="laboratory_id" scope="primary"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="distribute table registration">
+        <comment>create_distributed_table('registration')</comment>
+        <ext:distributeTable tableName="registration" distributionColumn="laboratory_id" colocateWith="laboratory" scope="primary"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="distribute table staff">
+        <comment>create_distributed_table('staff')</comment>
+        <ext:distributeTable tableName="staff" distributionColumn="laboratory_id" colocateWith="laboratory" scope="primary"/>
+    </changeSet>
+
+    <!-- <changeSet author="registry owner" id="distribute table test_pd_processing_consent_subject"> -->
+        <!-- <comment>create_distributed_table('test_pd_processing_consent_subject')</comment> -->
+        <!-- <ext:distributeTable tableName="test_pd_processing_consent_subject" distributionColumn="consent_id" colocateWith="test_pd_processing_consent"/> -->
+    <!-- </changeSet> -->
+
+</databaseChangeLog>

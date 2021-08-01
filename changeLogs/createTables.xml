@@ -1,0 +1,146 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext xsd/dbchangelog-ext.xsd">
+
+    <changeSet id="table test_pd_subject_role" author="registry owner">
+        <comment>CREATE TABLE test_pd_subject_role</comment>
+        <createTable tableName="test_pd_subject_role" ext:historyFlag="true">
+            <column name="role_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_pd_subject_role"/>
+            </column>
+            <column name="role_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table test_pd_processing_consent" author="registry owner">
+        <comment>CREATE TABLE test_pd_processing_consent</comment>
+        <ext:createTable tableName="test_pd_processing_consent" ext:historyFlag="true">
+            <column name="consent_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_pd_processing_consent"/>
+            </column>
+            <column name="consent_date" type="TIMESTAMPTZ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person_full_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person_pass_number" type="dn_passport_num">
+                <constraints nullable="false"/>
+            </column>
+        </ext:createTable>
+    </changeSet>
+
+    <changeSet id="table test_pd_processing_consent_type" author="registry owner">
+        <comment>CREATE TABLE test_pd_processing_consent_type</comment>
+        <createTable tableName="test_pd_processing_consent_type" ext:historyFlag="true">
+            <column name="consent_type_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_pd_processing_consent_type"/>
+            </column>
+            <column name="consent_type_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consent_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_test_pd_processing_consent_type_consent_id"
+                             referencedTableName="test_pd_processing_consent"
+                             referencedColumnNames="consent_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table test_pd_processing_consent_subject" author="registry owner">
+        <comment>CREATE TABLE test_pd_processing_consent_subject</comment>
+        <createTable tableName="test_pd_processing_consent_subject" ext:historyFlag="true">
+            <column name="consent_subject_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_pd_processing_consent_subject"/>
+            </column>
+            <column name="edrpou" type="dn_edrpou">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_entity_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consent_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_test_pd_processing_consent_subject_consent_id"
+                             referencedTableName="test_pd_processing_consent"
+                             referencedColumnNames="consent_id"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_test_pd_processing_consent_subject_role_id"
+                             referencedTableName="test_pd_subject_role"
+                             referencedColumnNames="role_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table test_pd_processing_consent_goal" author="registry owner">
+        <comment>CREATE TABLE test_pd_processing_consent_goal</comment>
+        <createTable tableName="test_pd_processing_consent_goal" ext:historyFlag="true">
+            <column name="consent_goal_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_pd_processing_consent_goal"/>
+            </column>
+            <column name="consent_goal_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consent_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_test_pd_processing_consent_goal_consent_id"
+                             referencedTableName="test_pd_processing_consent"
+                             referencedColumnNames="consent_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table test_pd_processing_consent_action" author="registry owner">
+        <comment>CREATE TABLE test_pd_processing_consent_action</comment>
+        <createTable tableName="test_pd_processing_consent_action" ext:historyFlag="true">
+            <column name="consent_action_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_pd_processing_consent_action"/>
+            </column>
+            <column name="consent_action_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consent_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_test_pd_processing_consent_action_consent_id"
+                             referencedTableName="test_pd_processing_consent"
+                             referencedColumnNames="consent_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="tables test syntax" author="registry owner">
+        <comment>Коммент українською</comment>
+        <createTable tableName="test_lqb_syntax_dic" ext:historyFlag="true">
+            <column  name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_lqb_syntax_dic_id"/>
+            </column>
+        </createTable>
+        <createTable tableName="test_lqb_syntax" ext:historyFlag="true">
+            <column name="test_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_test_lqb_syntax_test_id"/>
+            </column>
+            <column name="test_default_value" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test_domain" type="DN_EDRPOU"/>
+            <column name="dic_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_test_lqb_syntax_dic_2_dic" references="test_lqb_syntax_dic(id)"/>
+            </column>
+        </createTable>
+        <addDefaultValue tableName="test_lqb_syntax"
+                         columnName="test_default_value"
+                         defaultValue="true"/>
+
+    </changeSet>
+
+</databaseChangeLog>

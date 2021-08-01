@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+
+<databaseChangeLog  
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"  
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="registry owner" id="enum subject_type">
+        <comment>CREATE TYPE typ_dml</comment>
+        <ext:createType name="typ_subject_type">
+            <ext:asEnum>
+                <ext:label translation="Фізична особа">INDIVIDUAL</ext:label>
+                <ext:label translation="ФОП">ENTREPRENEUR</ext:label>
+                <ext:label translation="Юридична особа">LEGAL</ext:label>
+                <ext:label translation="Чиновник">OFFICER</ext:label>
+            </ext:asEnum>
+        </ext:createType>
+    </changeSet>
+
+    <changeSet author="registry owner" id="enum subject_status">
+        <comment>CREATE TYPE typ_dml</comment>
+        <ext:createType name="typ_subject_status">
+            <ext:asEnum>
+                <ext:label translation="скасовано">CANCELED</ext:label>
+                <ext:label translation="зареєстровано">REGISTERED</ext:label>
+                <ext:label translation="в стані припинення">SUSPENDING</ext:label>
+                <ext:label translation="припинено">SUSPENDED</ext:label>
+                <ext:label translation="порушено справу про банкрутство">BANKRUPTCY</ext:label>
+                <ext:label translation="порушено справу про банкрутство (санація)">SANCTION</ext:label>
+                <ext:label translation="зареєстровано, свідоцтво про державну реєстрацію недійсне">NOTVALID</ext:label>
+            </ext:asEnum>
+        </ext:createType>
+    </changeSet>
+
+    <changeSet author="registry owner" id="table subject">
+        <createTable tableName="subject" ext:historyFlag="true">
+            <column name="subject_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_subject"/>
+            </column>
+            <column name="subject_code" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject_type" type="typ_subject_type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject_status" type="typ_subject_status"/>
+            <column name="subject_name" type="TEXT"/>
+            <column name="absent_edr_flag" type="BOOLEAN"/>
+        </createTable>
+        <addUniqueConstraint  columnNames="subject_code, subject_type"
+                              constraintName="un_subject_code_type"
+                              tableName="subject"/>
+    </changeSet>
+
+    <changeSet author="registry owner" id="table subject_settings">
+        <createTable tableName="subject_settings" ext:historyFlag="true">
+            <column name="subject_settings_id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_subject_settings"/>
+            </column>
+            <column name="settings_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_subject_subject_id"
+                             referencedTableName="subject"
+                             referencedColumnNames="subject_id"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet author="registry owner" id="searchCondition MDTUDDM-6273">
+        <comment>CREATE search condition subject_subject_type_legal_equal_subject_code</comment>
+        <ext:createSearchCondition name="subject_equal_subject_type_equal_subject_code">
+            <ext:table name="subject" alias="s">
+                <ext:column name="subject_id" returning="true"/>
+                <ext:column name="subject_status" returning="true"/>
+                <ext:column name="subject_code" searchType="equal"/>
+                <ext:column name="subject_type" searchType="equal"/>
+            </ext:table>
+        </ext:createSearchCondition>
+    </changeSet>
+
+    <changeSet author="registry owner" id="searchCondition MDTUDDM-6961">
+        <comment>CREATE search condition subject_settings_settings_id_equal</comment>
+        <ext:createSearchCondition name="subject_settings_equal_settings_id">
+            <ext:table name="subject_settings" alias="ss">
+                <ext:column name="subject_settings_id" returning="true"/>
+                <ext:column name="settings_id" searchType="equal"/>
+            </ext:table>
+        </ext:createSearchCondition>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -1,0 +1,107 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="registry owner" id="enum typ_operation">
+        <comment>CREATE TYPE typ_operation</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+            CREATE TYPE typ_operation AS ENUM ('S','I','U','D');
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="true">DROP TYPE typ_operation;</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="registry owner" id="enum typ_dml">
+        <comment>CREATE TYPE typ_dml</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            CREATE TYPE typ_dml AS ENUM ('I','U','D');
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="false">
+                DROP TYPE typ_dml;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="registry owner" id="refs">
+        <comment>CREATE TYPE refs</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            CREATE TYPE refs AS(
+             ref_table TEXT
+            ,ref_col TEXT
+            ,ref_id TEXT
+            ,lookup_col TEXT
+            ,list_delim CHAR(1)
+            );
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="false">
+                DROP TYPE refs;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="registry owner" id="enum typ_classification_enum">
+        <comment>CREATE TYPE typ_classification_enum</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            CREATE TYPE typ_classification_enum AS ENUM ('private', 'confidential');
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="false">
+                DROP TYPE typ_classification_enum;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="registry owner" id="typ_classification">
+        <comment>CREATE TYPE typ_classification</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            CREATE TYPE typ_classification AS (
+                data_column_name TEXT,
+                data_classification typ_classification_enum
+            );
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="false">
+                DROP TYPE typ_classification;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="registry owner" id="typ_access_role">
+        <comment>CREATE TYPE typ_access_role</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            CREATE TYPE typ_access_role AS (
+                data_column_name TEXT,
+                access_role TEXT []
+            );
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="false">
+                DROP TYPE typ_access_role;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="registry owner" id="typ_file">
+        <comment>CREATE TYPE typ_file</comment>
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            CREATE TYPE typ_file as (
+                ceph_key text,
+                file_checksum text
+            );
+        </sql>
+        <rollback>
+            <sql splitStatements="true" stripComments="false">
+                DROP TYPE typ_file;
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

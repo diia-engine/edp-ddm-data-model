@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext xsd/dbchangelog-ext.xsd">
+
+    <changeSet author="registry owner" id="domain dn_passport_num">
+        <comment>CREATE DOMAIN dn_passport_num</comment>
+        <ext:createDomain name="dn_passport_num" type="CHAR(8)">
+			<ext:constraint name="ck_passport_num" implementation="VALUE ~ '^[АВЕІКМНОРСТХ]{2}\d{6}$'"/>
+		</ext:createDomain>
+    </changeSet>
+
+    <changeSet author="registry owner" id="domain dn_edrpou">
+        <comment>CREATE DOMAIN dn_edrpou</comment>
+        <ext:createDomain name="dn_edrpou" type="CHAR(10)">
+			<ext:constraint name="ck_edrpou" implementation="VALUE ~ '^\d{8}|\d{9}|\d{10}$' AND f_edrpou_is_correct(VALUE)"/>
+		</ext:createDomain>
+    </changeSet>
+
+	<changeSet author="registry owner" id="domain distribution dn_passport_num">
+	  <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+		SELECT run_command_on_workers($$
+		  CREATE DOMAIN dn_passport_num CHAR(8) CONSTRAINT passport_number_chk CHECK (VALUE ~ '^[АВЕІКМНОРСТХ]{2}\d{6}$');
+		  CREATE DOMAIN dn_edrpou CHAR(10) CONSTRAINT edrpou_chk CHECK (VALUE ~ '^\d{8}|\d{9}|\d{10}$')
+		 ;$$);
+		<comment>Distribute domains to nodes</comment>
+	  </sql>
+      <rollback>
+        <sql splitStatements="true" stripComments="false">
+		  SELECT run_command_on_workers($$DROP DOMAIN dn_passport_num;DROP DOMAIN dn_edrpou;$$);
+		</sql>
+      </rollback>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+
+<databaseChangeLog  
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"  
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="registry owner" id="refresh subscription operational_sub" runInTransaction="false">
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+			ALTER SUBSCRIPTION operational_sub REFRESH PUBLICATION;
+			<comment>Refresh subscription</comment>
+		</sql>
+		<rollback>
+		</rollback>
+	</changeSet>
+
+	<changeSet author="registry owner" id="refresh subscription operational_sub@workers" runInTransaction="false" labels="citus">
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+			SELECT run_command_on_workers($$ALTER SUBSCRIPTION operational_sub REFRESH PUBLICATION$$);
+			<comment>Refresh subscription</comment>
+		</sql>
+		<rollback>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

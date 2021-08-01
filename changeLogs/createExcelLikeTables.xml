@@ -1,0 +1,325 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext xsd/dbchangelog-ext.xsd">
+
+    <changeSet id="table koatuu" author="registry owner">
+        <createTable tableName="koatuu" ext:historyFlag="true">
+            <column name="koatuu_id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_koatuu_id"/>
+            </column>
+            <column name="code" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level1" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level2" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="TEXT"/>
+            <column name="category" type="CHAR(1)"/>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table ownership" author="registry owner">
+        <createTable tableName="ownership" ext:historyFlag="true" remarks="Довідник форм власності">
+            <column name="ownership_id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ownership_id"/>
+            </column>
+            <column name="code" type="TEXT" remarks="Код">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Назва">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table kopfg" author="registry owner">
+        <createTable tableName="kopfg" ext:historyFlag="true"
+                     remarks="Класифікація організаційно-правових форм господарювання (КОПФГ)">
+            <column name="kopfg_id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_kopfg_id"/>
+            </column>
+            <column name="code" type="TEXT" remarks="Код">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Назва">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table laboratory" author="registry owner">
+        <createTable tableName="laboratory" ext:historyFlag="true" ext:isObject="true" remarks="Лабораторії що атестуються">
+            <column name="laboratory_id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_laboratory_id"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="koatuu_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_laboratory_koatuu"
+                             referencedTableName="koatuu"
+                             referencedColumnNames="koatuu_id"/>
+            </column>
+            <column name="address" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="head_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="edrpou" type="DN_EDRPOU">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ownership_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_laboratory_ownership"
+                             referencedTableName="ownership"
+                             referencedColumnNames="ownership_id"/>
+            </column>
+            <column name="kopfg_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_laboratory_kopfg"
+                             referencedTableName="kopfg"
+                             referencedColumnNames="kopfg_id"/>
+            </column>
+            <column name="accreditation_flag" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accreditation_end_date" type="DATE"/>
+            <column name="notes" type="TEXT"/>
+        </createTable>
+        <addUniqueConstraint tableName="laboratory" columnNames="name,edrpou"/>
+    </changeSet>
+
+    <changeSet id="table research" author="registry owner">
+        <createTable tableName="research" ext:historyFlag="true" remarks="Довідник типів досліджень">
+            <column name="research_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор дослідження">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_research_id"/>
+            </column>
+            <column name="research_type" type="TEXT" remarks="Тип дослідження">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table staff_status" author="registry_owner">
+        <createTable tableName="staff_status" ext:historyFlag="true" remarks="Довідник статусів співробітників">
+            <column name="staff_status_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор статусів співробітників">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_staff_status_id"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Назва статуса співробітника">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="constant_code" type="TEXT" remarks="Символьна константа">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table staff" author="registry owner">
+        <createTable tableName="staff" ext:historyFlag="true" remarks="Кадровий склад">
+            <column name="staff_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор кадрової одиниці">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_staff_id"/>
+            </column>
+            <column name="laboratory_id" type="UUID" remarks="Ідентифікатор лабораторії">
+                <constraints nullable="false"
+                             foreignKeyName="fk_staff_laboratory"
+                             referencedTableName="laboratory"
+                             referencedColumnNames="laboratory_id"/>
+            </column>
+            <column name="staff_status_id" type="UUID" remarks="Ідентифікатор статусів співробітників">
+                <constraints nullable="false"
+                             foreignKeyName="fk_staff_status"
+                             referencedTableName="staff_status"
+                             referencedColumnNames="staff_status_id"/>
+            </column>
+            <column name="researches" type="UUID[]" remarks="Масив ідентифікаторів досліджень">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="TEXT" remarks="Прізвище, ім'я, по батькові">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hygienist_flag" type="BOOLEAN" remarks="Лікар з гігієни праці (true) / Лаборант (false)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_time_flag" type="BOOLEAN" remarks="Основне місце роботи (true) / Сумісництво (false)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="salary" type="FLOAT" remarks="Ставка"/>
+            <column name="fixed_term_contract_flag" type="BOOLEAN" remarks="Трудовий договір строковий?">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contract_end_date" type="DATE" remarks="Дата закінчення строкового трудового договору"/>
+            <column name="specialization_date" type="DATE" remarks="Дата проходження спеціалізації"/>
+            <column name="specialization_end_date" type="DATE" remarks="Дата закінчення спеціалізації"/>
+            <column name="dismissal_date" type="DATE" remarks="Дата зміни статусу"/>
+        </createTable>
+
+        <ext:createMany2Many mainTableName="staff"
+                             mainTableKeyField="staff_id"
+                             referenceTableName="research"
+                             referenceKeysArray="researches"/>
+
+    </changeSet>
+
+    <changeSet id="table application_type" author="registry_owner">
+        <createTable tableName="application_type" ext:historyFlag="true" remarks="Довідник типів заяв">
+            <column name="application_type_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор типів заяв">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_application_type_id"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Тип заяви">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="constant_code" type="TEXT" remarks="Символьна константа">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table refusal_reason" author="registry_owner">
+        <createTable tableName="refusal_reason" ext:historyFlag="true" remarks="Довідник підстав для відмов">
+            <column name="refusal_reason_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор підстав для відмов">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_refusal_reason_id"/>
+            </column>
+            <column name="document_type" type="TEXT" remarks="Класифікаційна ознака">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Підстава для відмови">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="constant_code" type="TEXT" remarks="Символьна константа">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table solution_type" author="registry_owner">
+        <createTable tableName="solution_type" ext:historyFlag="true" remarks="Довідник типів рішень">
+            <column name="solution_type_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор типів рішень">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_solution_type_id"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Тип рішення">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="constant_code" type="TEXT" remarks="Символьна константа">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table factor" author="registry_owner">
+        <createTable tableName="factor" ext:historyFlag="true" remarks="Довідник всіх факторів">
+            <column name="factor_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор фактору">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_factor_id"/>
+            </column>
+            <column name="code" type="TEXT" remarks="Код">
+                <constraints nullable="true"/>
+            </column>
+            <column name="factor_type"
+                    type="TEXT"
+                    remarks="Тип фактору (фізичний, біологічний, трудового процессу, хім гігієнічних, ГОСТ, ОБРВ)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT" remarks="Назва фактору">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="TEXT" remarks="Підстава внесення"/>
+        </createTable>
+        <addUniqueConstraint tableName="factor" columnNames="factor_type, name"/>
+    </changeSet>
+
+    <changeSet id="table registration" author="registry_owner">
+        <!--        Наразі відсутня підримка кастомних типів-->
+        <!--        TODO: Підтримка кастомних типів на рівні API & Java-->
+        <!--        <ext:createType name="reg_source_type">-->
+        <!--            <ext:asEnum>-->
+        <!--                <ext:label translation="Лабораторія">Laboratory</ext:label>-->
+        <!--                <ext:label translation="Територіальний орган">Territorial authority</ext:label>-->
+        <!--            </ext:asEnum>-->
+        <!--        </ext:createType>-->
+        <createTable tableName="registration" ext:historyFlag="true" remarks="Реєстраційна послуга">
+            <column name="registration_id"  type="UUID" defaultValueComputed="uuid_generate_v4()"
+                    remarks="Ідентифікатор реєстраційної послуги">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registration_id"/>
+            </column>
+            <column name="registration_no" type="TEXT" remarks="Номер реєстраційної заяви">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATE" remarks="Дата надходження заяви">
+                <constraints nullable="false"/>
+            </column>
+            <column name="registration_source" type="TEXT" remarks="Джерело надходження заяви">
+                <constraints nullable="false"/>
+            </column>
+            <!--            <column name="registration_source" type="REG_SOURCE_TYPE" remarks="Джерело надходження заяви">-->
+            <!--                <constraints nullable="false"/>-->
+            <!--            </column>-->
+            <column name="application_type_id" type="UUID" remarks="Ідентифікатор типу заяви">
+                <constraints nullable="false"
+                             foreignKeyName="fk_registration_application_type"
+                             referencedTableName="application_type"
+                             referencedColumnNames="application_type_id"/>
+            </column>
+            <column name="accepted_by" type="TEXT" remarks="ПІБ особи, що прийняла заяву">
+                <constraints nullable="false"/>
+            </column>
+            <column name="laboratory_id" type="UUID" remarks="Ідентифікатор лабораторії">
+                <constraints foreignKeyName="fk_registration_laboratory"
+                             referencedTableName="laboratory"
+                             referencedColumnNames="laboratory_id"
+                             nullable="false"/>
+            </column>
+            <column name="health_ministry_letter_number" type="TEXT" remarks="Номер листа-відповіді МОЗ"/>
+            <column name="health_ministry_letter_date" type="DATE" remarks="Дата листа-відповіді МОЗ"/>
+            <column name="solution_type_id" type="UUID" remarks="Ідентифікатор типів рішень">
+                <constraints nullable="false"
+                             foreignKeyName="fk_registration_solution_type"
+                             referencedTableName="solution_type"
+                             referencedColumnNames="solution_type_id"/>
+            </column>
+            <column name="solution_date" type="DATE" remarks="Дата рішення"/>
+            <column name="exclusion_order_no" type="TEXT" remarks="Номер наказу про рішення"/>
+            <column name="exclusion_order_date" type="DATE" remarks="Дата наказу про рішення"/>
+            <column name="letter_no" type="TEXT" remarks="Номер листа щодо рішення"/>
+            <column name="letter_date" type="DATE" remarks="Дата листа щодо рішення"/>
+            <column name="received_by" type="TEXT" remarks="ПІБ представника лабораторії, якому вручено лист щодо рішення"/>
+            <column name="certified_by" type="TEXT" remarks="Назва та реквізити документу, що підтверджує наявність повноважень"/>
+            <column name="notes" type="TEXT" remarks="Примітки"/>
+            <column name="factors" type="UUID[]" remarks="Масив ідентифікаторів факторів"/>
+            <column name="refusal_reasons" type="UUID[]" remarks="Масив ідентифікаторів підстав для відмов"/>
+        </createTable>
+
+        <ext:createMany2Many mainTableName="registration"
+                             mainTableKeyField="registration_id"
+                             referenceTableName="factor"
+                             referenceKeysArray="factors"/>
+
+        <ext:createMany2Many mainTableName="registration"
+                             mainTableKeyField="registration_id"
+                             referenceTableName="refusal_reason"
+                             referenceKeysArray="refusal_reasons"/>
+
+    </changeSet>
+
+</databaseChangeLog>

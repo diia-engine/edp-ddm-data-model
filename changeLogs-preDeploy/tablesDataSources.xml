@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+
+<databaseChangeLog  
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"  
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">  
+
+    <changeSet author="registry owner" id="table ddm_source_system">
+        <comment>CREATE TABLE ddm_source_system</comment>
+        <createTable tableName="ddm_source_system">
+            <column name="system_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ddm_source_system"/>
+            </column>
+            <column name="system_name" type="TEXT">
+                <constraints nullable="false" unique="true" uniqueConstraintName="iu_ddm_source_system"/>
+            </column>
+            <column name="created_by" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="registry owner" id="table ddm_source_application">
+        <comment>CREATE TABLE ddm_source_application</comment>
+        <createTable tableName="ddm_source_application">
+            <column name="application_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ddm_source_application"/>
+            </column>
+            <column name="application_name" type="TEXT">
+                <constraints nullable="false" unique="true" uniqueConstraintName="iu_ddm_source_application"/>
+            </column>
+            <column name="created_by" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="registry owner" id="table ddm_source_business_process">
+        <comment>CREATE TABLE ddm_source_business_process</comment>
+        <createTable tableName="ddm_source_business_process">
+            <column name="business_process_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ddm_source_business_process"/>
+            </column>
+            <column name="business_process_name" type="TEXT">
+                <constraints nullable="false" unique="true" uniqueConstraintName="iu_ddm_source_business_process"/>
+            </column>
+            <column name="created_by" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- <changeSet author="registry owner" id="table ddm_data_transport"> -->
+        <!-- <comment>CREATE TABLE ddm_data_transport</comment> -->
+        <!-- <createTable tableName="ddm_data_transport"> -->
+            <!-- <column name="transport_id" type="UUID"> -->
+                <!-- <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ddm_data_transport"/> -->
+            <!-- </column> -->
+            <!-- <column name="transport_name" type="TEXT"> -->
+                <!-- <constraints nullable="false" unique="true" uniqueConstraintName="iu_ddm_data_transport"/> -->
+            <!-- </column> -->
+            <!-- <column name="created_by" type="TEXT"> -->
+                <!-- <constraints nullable="false"/> -->
+            <!-- </column> -->
+            <!-- <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"> -->
+                <!-- <constraints nullable="false"/> -->
+            <!-- </column> -->
+        <!-- </createTable> -->
+    <!-- </changeSet> -->
+	
+</databaseChangeLog>
+
