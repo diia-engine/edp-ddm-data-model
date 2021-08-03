@@ -150,9 +150,7 @@
                              referencedTableName="staff_status"
                              referencedColumnNames="staff_status_id"/>
             </column>
-            <column name="researches" type="UUID[]" remarks="Масив ідентифікаторів досліджень">
-                <constraints nullable="false"/>
-            </column>
+            <column name="researches" type="UUID[]" remarks="Масив ідентифікаторів досліджень"/>
             <column name="full_name" type="TEXT" remarks="Прізвище, ім'я, по батькові">
                 <constraints nullable="false"/>
             </column>
