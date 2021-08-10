@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <databaseChangeLog
-		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext xsd/dbchangelog-ext.xsd">
 
     <changeSet author="registry owner" id="create report_registration_factor view">
@@ -329,6 +329,129 @@
                 <ext:column name="research_type" returning="false"/>
             </ext:table>
         </ext:createSearchCondition>
+    </changeSet>
+
+    <changeSet author="registry owner" id="create report_solution_type view">
+        <ext:createSearchCondition name="report_solution_type">
+            <ext:table name="solution_type">
+                <ext:column name="solution_type_id" returning="false"/>
+                <ext:column name="name" returning="false"/>
+            </ext:table>
+        </ext:createSearchCondition>
+    </changeSet>
+
+    <changeSet author="registry owner" id="create report_application_type view">
+        <ext:createSearchCondition name="report_application_type">
+            <ext:table name="application_type">
+                <ext:column name="application_type_id" returning="false"/>
+                <ext:column name="name" returning="false"/>
+            </ext:table>
+        </ext:createSearchCondition>
+    </changeSet>
+
+    <changeSet author="registry owner" id="create report_factor view">
+        <ext:createSearchCondition name="report_factor">
+            <ext:table name="factor">
+                <ext:column name="factor_id" returning="false"/>
+                <ext:column name="factor_type" returning="false"/>
+                <ext:column name="name" returning="false"/>
+            </ext:table>
+        </ext:createSearchCondition>
+    </changeSet>
+
+    <changeSet author="registry owner" id="create report_simple_registration view">
+        <ext:createSearchCondition name="report_simple_registration">
+            <ext:table name="registration">
+                <ext:column name="registration_id" returning="false"/>
+                <ext:column name="laboratory_id" returning="false"/>
+                <ext:column name="created_date" returning="false"/>
+                <ext:column name="registration_source" returning="false"/>
+                <ext:column name="accepted_by" returning="false"/>
+                <ext:column name="solution_date" returning="false"/>
+                <ext:column name="health_ministry_letter_number" returning="false"/>
+                <ext:column name="health_ministry_letter_date" returning="false"/>
+                <ext:column name="exclusion_order_no" returning="false"/>
+                <ext:column name="exclusion_order_date" returning="false"/>
+                <ext:column name="letter_no" returning="false"/>
+                <ext:column name="received_by" returning="false"/>
+                <ext:column name="certified_by" returning="false"/>
+                <ext:column name="application_type_id" returning="false"/>
+                <ext:column name="solution_type_id" returning="false"/>
+                <ext:column name="factors" returning="false"/>
+            </ext:table>
+        </ext:createSearchCondition>
+    </changeSet>
+
+    <changeSet author="registry owner" id="create indexes">
+        <createIndex tableName="laboratory" indexName="idx_laboratory__kopfg_id">
+            <column name="kopfg_id"/>
+        </createIndex>
+        <createIndex tableName="laboratory" indexName="idx_laboratory__ownership_id">
+            <column name="ownership_id"/>
+        </createIndex>
+        <createIndex tableName="laboratory" indexName="idx_laboratory__lower_name">
+            <column name="lower(name) text_pattern_ops"/>
+        </createIndex>
+
+        <createIndex tableName="kopfg" indexName="idx_kopfg__name">
+            <column name="name"/>
+        </createIndex>
+
+        <createIndex tableName="ownership" indexName="idx_ownership__name">
+            <column name="name"/>
+        </createIndex>
+
+        <createIndex tableName="registration" indexName="idx_registration__laboratory_id">
+            <column name="laboratory_id"/>
+        </createIndex>
+        <createIndex tableName="registration" indexName="idx_registration__application_type_id">
+            <column name="application_type_id"/>
+        </createIndex>
+        <createIndex tableName="registration" indexName="idx_registration__solution_type_id">
+            <column name="solution_type_id"/>
+        </createIndex>
+        <createIndex tableName="registration" indexName="idx_registration__solution_date">
+            <column name="solution_date" descending="true"/>
+        </createIndex>
+        <createIndex tableName="registration" indexName="idx_registration__created_date">
+            <column name="created_date"/>
+        </createIndex>
+        <createIndex tableName="registration" indexName="idx_registration__ddm_created_at">
+            <column name="ddm_created_at"/>
+        </createIndex>
+        <createIndex tableName="registration" indexName="idx_registration__registration_source">
+            <column name="registration_source"/>
+        </createIndex>
+
+        <createIndex tableName="koatuu" indexName="idx_koatuu__code">
+            <column name="code"/>
+        </createIndex>
+
+        <createIndex tableName="koatuu" indexName="idx_koatuu__level1">
+            <column name="level1"/>
+        </createIndex>
+
+        <createIndex tableName="staff" indexName="idx_staff__hygienist_flag">
+            <column name="hygienist_flag"/>
+        </createIndex>
+        <createIndex tableName="staff" indexName="idx_staff__lower_full_name">
+            <column name="lower(full_name) text_pattern_ops"/>
+        </createIndex>
+        <createIndex tableName="staff" indexName="idx_staff__full_time_flag">
+            <column name="full_time_flag"/>
+        </createIndex>
+        <createIndex tableName="staff" indexName="idx_staff__fixed_term_contract_flag">
+            <column name="fixed_term_contract_flag"/>
+        </createIndex>
+        <createIndex tableName="staff" indexName="idx_staff__contract_end_date">
+            <column name="contract_end_date"/>
+        </createIndex>
+        <createIndex tableName="staff" indexName="idx_staff__specialization_date">
+            <column name="specialization_date"/>
+        </createIndex>
+        <createIndex tableName="staff" indexName="idx_staff__specialization_end_date">
+            <column name="specialization_end_date"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>
