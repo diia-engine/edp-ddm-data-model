@@ -44,11 +44,11 @@
 	<changeSet author="registry owner" id="distribute extension trigram" labels="citus">
 		<comment>Extension for contains indexes to workers</comment>
 		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
-			SELECT run_command_on_workers($$CREATE EXTENSION pg_trgm;$$);
+			SELECT run_command_on_workers($$CREATE EXTENSION pg_trgm$$);
 		</sql>
 		<rollback>
 			<sql splitStatements="true" stripComments="true">
-				SELECT run_command_on_workers($$DROP EXTENSION pg_trgm;$$);
+				SELECT run_command_on_workers($$DROP EXTENSION pg_trgm$$);
 			</sql>
 		</rollback>
 	</changeSet>
@@ -72,7 +72,7 @@
 		</sql>
 		<rollback>
 			<sql splitStatements="true" stripComments="true">
-				SELECT run_command_on_workers($$DROP EXTENSION "uuid-ossp";$$);
+				SELECT run_command_on_workers($$DROP EXTENSION "uuid-ossp"$$);
 			</sql>
 		</rollback>
 	</changeSet>
