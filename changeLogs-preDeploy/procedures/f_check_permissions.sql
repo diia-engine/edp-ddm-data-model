@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.f_check_permissions(p_object_name text, p_roles_arr text[], p_operation typ_operation DEFAULT 'S'::typ_operation, p_columns_arr text[] DEFAULT NULL::text[])
+CREATE OR REPLACE FUNCTION public.f_check_permissions(p_object_name text, p_roles_arr text[], p_operation type_operation DEFAULT 'S'::type_operation, p_columns_arr text[] DEFAULT NULL::text[])
  RETURNS boolean
  LANGUAGE plpgsql
 AS $function$

@@ -6,7 +6,7 @@ declare
   c_unit_name       text := 'f_check_permissions_dcm';
   l_sql             text;
   l_column_name     text;
-  l_dcm_access_role typ_access_role[];
+  l_dcm_access_role type_access_role[];
   i                 record;
 begin
 

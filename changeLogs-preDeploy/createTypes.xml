@@ -7,24 +7,24 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet author="registry owner" id="enum typ_operation">
-        <comment>CREATE TYPE typ_operation</comment>
+    <changeSet author="registry owner" id="enum type_operation">
+        <comment>CREATE TYPE type_operation</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
-            CREATE TYPE typ_operation AS ENUM ('S','I','U','D');
+            CREATE TYPE type_operation AS ENUM ('S','I','U','D');
         </sql>
         <rollback>
-            <sql splitStatements="true" stripComments="true">DROP TYPE typ_operation;</sql>
+            <sql splitStatements="true" stripComments="true">DROP TYPE type_operation;</sql>
         </rollback>
     </changeSet>
 
-    <changeSet author="registry owner" id="enum typ_dml">
-        <comment>CREATE TYPE typ_dml</comment>
+    <changeSet author="registry owner" id="enum type_dml">
+        <comment>CREATE TYPE type_dml</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-            CREATE TYPE typ_dml AS ENUM ('I','U','D');
+            CREATE TYPE type_dml AS ENUM ('I','U','D');
         </sql>
         <rollback>
             <sql splitStatements="true" stripComments="false">
-                DROP TYPE typ_dml;
+                DROP TYPE type_dml;
             </sql>
         </rollback>
     </changeSet>
@@ -47,59 +47,59 @@
         </rollback>
     </changeSet>
 
-    <changeSet author="registry owner" id="enum typ_classification_enum">
-        <comment>CREATE TYPE typ_classification_enum</comment>
+    <changeSet author="registry owner" id="enum type_classification_enum">
+        <comment>CREATE TYPE type_classification_enum</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-            CREATE TYPE typ_classification_enum AS ENUM ('private', 'confidential');
+            CREATE TYPE type_classification_enum AS ENUM ('private', 'confidential');
         </sql>
         <rollback>
             <sql splitStatements="true" stripComments="false">
-                DROP TYPE typ_classification_enum;
+                DROP TYPE type_classification_enum;
             </sql>
         </rollback>
     </changeSet>
 
-    <changeSet author="registry owner" id="typ_classification">
-        <comment>CREATE TYPE typ_classification</comment>
+    <changeSet author="registry owner" id="type_classification">
+        <comment>CREATE TYPE type_classification</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-            CREATE TYPE typ_classification AS (
+            CREATE TYPE type_classification AS (
                 data_column_name TEXT,
-                data_classification typ_classification_enum
+                data_classification type_classification_enum
             );
         </sql>
         <rollback>
             <sql splitStatements="true" stripComments="false">
-                DROP TYPE typ_classification;
+                DROP TYPE type_classification;
             </sql>
         </rollback>
     </changeSet>
 
-    <changeSet author="registry owner" id="typ_access_role">
-        <comment>CREATE TYPE typ_access_role</comment>
+    <changeSet author="registry owner" id="type_access_role">
+        <comment>CREATE TYPE type_access_role</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-            CREATE TYPE typ_access_role AS (
+            CREATE TYPE type_access_role AS (
                 data_column_name TEXT,
                 access_role TEXT []
             );
         </sql>
         <rollback>
             <sql splitStatements="true" stripComments="false">
-                DROP TYPE typ_access_role;
+                DROP TYPE type_access_role;
             </sql>
         </rollback>
     </changeSet>
 
-    <changeSet author="registry owner" id="typ_file">
-        <comment>CREATE TYPE typ_file</comment>
+    <changeSet author="registry owner" id="type_file">
+        <comment>CREATE TYPE type_file</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-            CREATE TYPE typ_file as (
+            CREATE TYPE type_file as (
                 ceph_key text,
                 file_checksum text
             );
         </sql>
         <rollback>
             <sql splitStatements="true" stripComments="false">
-                DROP TYPE typ_file;
+                DROP TYPE type_file;
             </sql>
         </rollback>
     </changeSet>

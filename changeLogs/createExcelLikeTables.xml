@@ -101,7 +101,7 @@
             </column>
             <column name="accreditation_end_date" type="DATE"/>
             <column name="notes" type="TEXT"/>
-            <column name="premises_file" type="typ_file" remarks="Документи про приміщення"/>
+            <column name="premises_file" type="type_file" remarks="Документи про приміщення"/>
         </createTable>
         <addUniqueConstraint tableName="laboratory" columnNames="name,edrpou"/>
     </changeSet>
@@ -171,9 +171,9 @@
             <column name="dismissal_date" type="DATE" remarks="Дата зміни статусу"/>
             <column name="education" type="TEXT" remarks="Освіта, фах"/>
             <column name="seniority" type="TEXT" remarks="Стаж роботи за фахом"/>
-            <column name="orders_file" type="typ_file" remarks="Додатки про копії наказів"/>
-            <column name="hire_staff_file" type="typ_file" remarks="Відомості про прийняття"/>
-            <column name="hygienist_certificate_file" type="typ_file" remarks="Сертифікат для лікаря з гігієни праці"/>
+            <column name="orders_file" type="type_file" remarks="Додатки про копії наказів"/>
+            <column name="hire_staff_file" type="type_file" remarks="Відомості про прийняття"/>
+            <column name="hygienist_certificate_file" type="type_file" remarks="Сертифікат для лікаря з гігієни праці"/>
         </createTable>
 
         <ext:createMany2Many mainTableName="staff"
@@ -312,10 +312,10 @@
             <column name="notes" type="TEXT" remarks="Примітки"/>
             <column name="factors" type="UUID[]" remarks="Масив ідентифікаторів факторів"/>
             <column name="refusal_reasons" type="UUID[]" remarks="Масив ідентифікаторів підстав для відмов"/>
-            <column name="zvt_file" type="typ_file" remarks="Відомості про засоби вимірювальної техніки"/>
-            <column name="zvt_certificate_file" type="typ_file" remarks="Свідоцтво або документ про відповідність"/>
-            <column name="reagent_file" type="typ_file" remarks="Накладні на реактиви"/>
-            <column name="reagent_availability_file" type="typ_file" remarks="Наявність необхідних реактивів"/>
+            <column name="zvt_file" type="type_file" remarks="Відомості про засоби вимірювальної техніки"/>
+            <column name="zvt_certificate_file" type="type_file" remarks="Свідоцтво або документ про відповідність"/>
+            <column name="reagent_file" type="type_file" remarks="Накладні на реактиви"/>
+            <column name="reagent_availability_file" type="type_file" remarks="Наявність необхідних реактивів"/>
         </createTable>
 
         <ext:createMany2Many mainTableName="registration"

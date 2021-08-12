@@ -22,7 +22,7 @@
             <column name="column_name" type="TEXT">
                 <constraints nullable="true"/>
             </column>
-            <column name="operation" type="typ_operation">
+            <column name="operation" type="type_operation">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="TIMESTAMPTZ">
