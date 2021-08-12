@@ -454,4 +454,12 @@
         </createIndex>
     </changeSet>
 
+	<changeSet author="registry owner" id="grants to analytics_officer role">
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+			call p_grant_analytics_user('analytics_officer');
+		</sql>
+		<rollback>
+		</rollback>
+	</changeSet>
+
 </databaseChangeLog>
