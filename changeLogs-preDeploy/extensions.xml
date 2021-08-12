@@ -29,6 +29,30 @@
 		</rollback>
 	</changeSet>
 
+	<changeSet author="registry owner" id="extension trigram">
+		<comment>Extension for contains indexes</comment>
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+			CREATE EXTENSION pg_trgm;
+		</sql>
+		<rollback>
+			<sql splitStatements="true" stripComments="true">
+				DROP EXTENSION pg_trgm;
+			</sql>
+		</rollback>
+	</changeSet>
+
+	<changeSet author="registry owner" id="distribute extension trigram" labels="citus">
+		<comment>Extension for contains indexes to workers</comment>
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+			SELECT run_command_on_workers($$CREATE EXTENSION pg_trgm;$$);
+		</sql>
+		<rollback>
+			<sql splitStatements="true" stripComments="true">
+				SELECT run_command_on_workers($$DROP EXTENSION pg_trgm;$$);
+			</sql>
+		</rollback>
+	</changeSet>
+
 	<changeSet author="registry owner" id="extension uuid-ossp">
 		<comment>Extension to generate uuid values</comment>
 		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
