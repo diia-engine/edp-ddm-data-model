@@ -431,5 +431,26 @@
         </ext:createSearchCondition>
     </changeSet>
 
+    <changeSet author="registry owner" id="searchCondition laboratory_equal_subject_code_name">
+        <comment>CREATE search condition laboratory_subject_code_name_equal</comment>
+        <ext:createSearchCondition name="laboratory_equal_subject_code_name">
+            <ext:table name="laboratory" alias="l">
+                <ext:column name="laboratory_id"/>
+                <ext:column name="name"/>
+            </ext:table>
+            <ext:table name="subject" alias="s">
+                <ext:column name="subject_code" searchType="equal"/>
+                <ext:column name="subject_type" searchType="equal"/>
+            </ext:table>
+            <ext:join type="inner">
+                <ext:left alias="l">
+                    <ext:column name="subject_id"/>
+                </ext:left>
+                <ext:right alias="s">
+                    <ext:column name="subject_id"/>
+                </ext:right>
+            </ext:join>
+        </ext:createSearchCondition>
+    </changeSet>
 
 </databaseChangeLog>
