@@ -17,6 +17,7 @@ BEGIN
     return;
   end if;
 
+  execute 'grant connect on database ' || current_database() || ' to ' || p_user_name || ';';
 
   FOR r IN SELECT * FROM information_schema.views WHERE table_name LIKE c_obj_pattern AND table_schema = 'public' LOOP
     EXECUTE 'GRANT SELECT ON ' || r.table_name || ' TO ' || p_user_name || ';';
