@@ -453,4 +453,41 @@
         </ext:createSearchCondition>
     </changeSet>
 
+    <changeSet author="registry owner" id="searchCondition registration_equal_laboratory_id_solution">
+        <comment>CREATE search condition registration_laboratory_id_solution_equal</comment>
+        <ext:createSearchCondition name="registration_equal_laboratory_id_solution">
+            <ext:table name="registration" alias="r">
+                <ext:column name="registration_id"/>
+                <ext:column name="registration_no"/>
+                <ext:column name="created_date"/>
+                <ext:column name="solution_date"/>
+                <ext:column name="laboratory_id" searchType="equal"/>
+            </ext:table>
+            <ext:table name="application_type" alias="a">
+                <ext:column name="name" alias="application_name"/>
+                <ext:column name="constant_code" alias="application_code"/>
+            </ext:table>
+            <ext:table name="solution_type" alias="s">
+                <ext:column name="name" alias="solution_name"/>
+                <ext:column name="constant_code" alias="solution_code" searchType="equal"/>
+            </ext:table>
+            <ext:join type="inner">
+                <ext:left alias="r">
+                    <ext:column name="application_type_id"/>
+                </ext:left>
+                <ext:right alias="a">
+                    <ext:column name="application_type_id"/>
+                </ext:right>
+            </ext:join>
+            <ext:join type="inner">
+                <ext:left alias="r">
+                    <ext:column name="solution_type_id"/>
+                </ext:left>
+                <ext:right alias="s">
+                    <ext:column name="solution_type_id"/>
+                </ext:right>
+            </ext:join>
+        </ext:createSearchCondition>
+    </changeSet>
+
 </databaseChangeLog>
