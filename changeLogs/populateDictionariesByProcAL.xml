@@ -83,4 +83,9 @@
 		</sql>
 	</changeSet>
 
+	<changeSet author="registry owner" id="load data to koatuu table">
+		<sql>SELECT f_row_insert('koatuu', ('curr_user=>"admin",source_system=>"System 1",source_application=>"Application 1",source_process=>"Business process 1",process_id=>"1204"')::hstore,($$code=>"0200000000",category=>NULL,name=>"М.КИЇВ",type=>О,level1=>8000000000,level2=>8000000000$$)::hstore)</sql>
+		<sql>SELECT f_row_insert('koatuu', ('curr_user=>"admin",source_system=>"System 1",source_application=>"Application 1",source_process=>"Business process 1",process_id=>"1204"')::hstore,($$code=>"9900000000",category=>NULL,name=>"М.СЕВАСТОПОЛЬ",type=>О,level1=>8500000000,level2=>8500000000$$)::hstore)</sql>
+	</changeSet>
+
 </databaseChangeLog>
