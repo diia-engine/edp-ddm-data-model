@@ -22,14 +22,7 @@
     </changeSet>
 
     <!-- <include file="changeLogs-preDeploy/extensions.xml" context="all" relativeToChangelogFile="true"/> -->
-    <include file="changeLogs-preDeploy/createTypes.xml" context="all" relativeToChangelogFile="true"/>
-    <include file="changeLogs-preDeploy/procedures.xml" context="all" relativeToChangelogFile="true"/>
     <include file="changeLogs-preDeploy/createDomains.xml" context="all" relativeToChangelogFile="true"/>
-    <include file="changeLogs-preDeploy/tableRolePermissions.xml" context="all" relativeToChangelogFile="true"/>
-    <include file="changeLogs-preDeploy/tableLiquibaseMetadata.xml" context="all" relativeToChangelogFile="true"/>
-    <include file="changeLogs-preDeploy/tablesDataSources.xml" context="all" relativeToChangelogFile="true"/>
-    <include file="changeLogs-preDeploy/publication.xml" context="pub" relativeToChangelogFile="true" labels="citus"/>
-    <include file="changeLogs-preDeploy/subscription.xml" context="sub" relativeToChangelogFile="true" labels="citus"/>
 
     <changeSet author="registry owner" id="version control" runAlways="true" runOnChange="true" context="all">
         <sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">

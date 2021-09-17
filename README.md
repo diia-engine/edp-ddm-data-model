@@ -2,7 +2,7 @@ Contains three changeLog repositories :
 
 1. Репозиторій ініціації бази даних реєстру, відповідає за базові налаштування БД (changelog-master-pre-deploy.xml):
     - недоступний адміністратору реєстру
-    - містить extensions, common custom data types, functions, procedures та ін.
+    - містить domains та version control.
     - статичний й незмінний для усіх реєстрів
     - використовує стандартну функціональність liquibase
     - застосовується першим зразу після створення БД реєстру
