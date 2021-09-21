@@ -24,7 +24,7 @@
 <!--    <include file="changeLogs/createDistributedTables.xml"/>-->
     <include file="changeLogs/createExcelLikeTables.xml"/>
 <!--    <include file="changeLogs/distibuteTables.xml" labels="citus"/>-->
-    <include file="changeLogs/createSearchConditions(MDTUDDM-2381).xml"/>
+    <include file="changeLogs/createSearchConditions(MDTUDDM-2381).xml" context="pub"/>
     <include file="changeLogs/createViewsForAnalytics.xml" context="sub"/>
 <!--    <include file="changeLogs/populateDictionaries.xml" context="pub"/>-->
     <include file="changeLogs/createViewsForDataLoad.xml" context="pub"/>
