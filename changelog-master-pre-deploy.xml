@@ -25,9 +25,9 @@
     <include file="changeLogs-preDeploy/createDomains.xml" context="all" relativeToChangelogFile="true"/>
 
     <changeSet author="registry owner" id="version control" runAlways="true" runOnChange="true" context="all">
+        <comment>Procedure to control registry versions</comment>
         <sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
-            CALL p_version_control('${reg_version}');
-            <comment>Procedure to control and update registry versions</comment>
+            CALL p_version_control('${reg_version}', false);
         </sql>
     </changeSet>
 
