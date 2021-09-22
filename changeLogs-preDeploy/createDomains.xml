@@ -21,7 +21,7 @@
 
 	<changeSet author="registry owner" id="domain dn_edrpou">
 	  <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-		CREATE DOMAIN dn_edrpou TEXT CONSTRAINT edrpou_chk CHECK (VALUE ~ '^\d{8}|\d{9}|\d{10}$' AND f_edrpou_is_correct(VALUE));
+		CREATE DOMAIN dn_edrpou TEXT CONSTRAINT edrpou_chk CHECK (VALUE ~ '^\d{8}|\d{9}|\d{10}$');
 		<comment>CREATE DOMAIN dn_edrpou</comment>
 	  </sql>
       <rollback>

@@ -17,7 +17,7 @@
     <changeSet author="registry owner" id="domain dn_edrpou">
         <comment>CREATE DOMAIN dn_edrpou</comment>
         <ext:createDomain name="dn_edrpou" type="CHAR(10)">
-			<ext:constraint name="ck_edrpou" implementation="VALUE ~ '^\d{8}|\d{9}|\d{10}$' AND f_edrpou_is_correct(VALUE)"/>
+			<ext:constraint name="ck_edrpou" implementation="VALUE ~ '^\d{8}|\d{9}|\d{10}$'"/>
 		</ext:createDomain>
     </changeSet>
 
