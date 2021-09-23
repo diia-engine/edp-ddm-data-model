@@ -72,7 +72,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="registry owner" id="searchCondition MDTUDDM-6273">
+    <changeSet author="registry owner" id="searchCondition MDTUDDM-6273" context="pub">
         <comment>CREATE search condition subject_subject_type_legal_equal_subject_code</comment>
         <ext:createSearchCondition name="subject_equal_subject_type_equal_subject_code">
             <ext:table name="subject" alias="s">
@@ -84,7 +84,7 @@
         </ext:createSearchCondition>
     </changeSet>
 
-    <changeSet author="registry owner" id="searchCondition MDTUDDM-6961">
+    <changeSet author="registry owner" id="searchCondition MDTUDDM-6961" context="pub">
         <comment>CREATE search condition subject_settings_settings_id_equal</comment>
         <ext:createSearchCondition name="subject_settings_equal_settings_id">
             <ext:table name="subject_settings" alias="ss">

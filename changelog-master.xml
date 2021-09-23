@@ -20,7 +20,7 @@
 	  <tagDatabase tag="v-0.1"/>
 	</changeSet>
 
-    <include file="changeLogs/tablesSubjects.xml" context="all" relativeToChangelogFile="true"/>
+    <include file="changeLogs/tablesSubjects.xml"/>
 <!--    <include file="changeLogs/createDistributedTables.xml"/>-->
     <include file="changeLogs/createExcelLikeTables.xml"/>
 <!--    <include file="changeLogs/distibuteTables.xml" labels="citus"/>-->
