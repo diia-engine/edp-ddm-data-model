@@ -454,12 +454,19 @@
         </createIndex>
     </changeSet>
 
-	<changeSet author="registry owner" id="grants to analytics_officer role">
-		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
-			call p_grant_analytics_user('analytics_officer');
-		</sql>
-		<rollback>
-		</rollback>
-	</changeSet>
+    <changeSet author="registry owner" id="grants to all analytics users">
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
+            DO $$
+            DECLARE
+              i record;
+            BEGIN
+              for i in select rolname from pg_catalog.pg_roles where rolname like 'analytics%' loop
+                call p_grant_analytics_user(i.rolname);
+              end loop;
+            END $$;
+        </sql>
+        <rollback>
+        </rollback>
+    </changeSet>
 
 </databaseChangeLog>
