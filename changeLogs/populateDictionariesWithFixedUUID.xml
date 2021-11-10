@@ -4,7 +4,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
 	<changeSet author="registry owner" id="load data to koatuu table">
 		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">SELECT f_row_insert('koatuu', ('curr_user=>"admin",source_system=>"System 1",source_application=>"Application 1",source_process=>"Business process 1",process_id=>"1204"')::hstore,($$level1=>"3200000000",level2=>"3200000000",code=>"3200000000",category=>NULL,name=>"КИЇВСЬКА ОБЛАСТЬ/М.КИЇВ",type=>"О"$$)::hstore,'263aec37-920e-4de4-8210-cdcde5d1a1ca')</sql>

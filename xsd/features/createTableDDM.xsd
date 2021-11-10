@@ -5,7 +5,7 @@
 			xmlns:orig="http://www.liquibase.org/xml/ns/dbchangelog"
 			elementFormDefault="qualified">
 
-	<!--    <xsd:import namespace="http://www.liquibase.org/xml/ns/dbchangelog" schemaLocation="dbchangelog-4.2.xsd"/>-->
+	<!--    <xsd:import namespace="http://www.liquibase.org/xml/ns/dbchangelog" schemaLocation="dbchangelog-4.5.xsd"/>-->
 
 	<xsd:annotation>
 		<xsd:appinfo>MDTU-DDM project</xsd:appinfo>
