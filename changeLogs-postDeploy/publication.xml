@@ -16,13 +16,4 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="registry owner" id="alter publication analytical_pub@worker" labels="citus">
-		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
-			SELECT run_command_on_workers($$CALL p_alter_publicaton('analytical_pub')$$);
-			<comment>Adds target tables to publication</comment>
-		</sql>
-		<rollback>
-		</rollback>
-	</changeSet>
-
 </databaseChangeLog>
