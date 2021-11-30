@@ -22,7 +22,6 @@
 
     <include file="changeLogs-postDeploy/publication.xml" context="pub" relativeToChangelogFile="true"/>
 	<include file="changeLogs-postDeploy/subscription.xml" context="sub" relativeToChangelogFile="true"/>
-	<include file="changeLogs-postDeploy/analyticsUsers.xml" context="sub" relativeToChangelogFile="true"/>
 
 	<changeSet author="registry owner" id="version control update" runAlways="true" runOnChange="true" context="all">
 		<comment>Procedure to update registry versions</comment>
