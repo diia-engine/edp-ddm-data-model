@@ -8,7 +8,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet author="registry owner" id="alter publication analytical_pub">
-		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true" runAlways="true">
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
 			CALL p_alter_publicaton('analytical_pub');
 			<comment>Adds target tables to publication</comment>
 		</sql>
