@@ -8,7 +8,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet author="registry owner" id="alter subscription operational_sub">
-		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
+		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true" runAlways="true">
 			CALL p_alter_subscription();
 			<comment>Refresh subscription</comment>
 		</sql>
