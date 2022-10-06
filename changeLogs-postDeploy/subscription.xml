@@ -7,7 +7,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<changeSet author="registry owner" id="alter subscription operational_sub">
+	<changeSet author="registry owner" id="alter subscription operational_sub" runAlways="true">
 		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
 			CALL p_alter_subscription();
 			<comment>Refresh subscription</comment>
