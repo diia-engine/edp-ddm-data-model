@@ -31,22 +31,4 @@
       </rollback>
 	</changeSet>
 
-	<changeSet author="registry owner" id="distribute domains" labels="citus">
-	  <sql dbms="postgresql" endDelimiter=";" splitStatements="false" stripComments="true">
-		SELECT run_command_on_workers($$
-		  CREATE DOMAIN dn_passport_num CHAR(8) CONSTRAINT passport_number_chk CHECK (VALUE ~ '^[АВЕІКМНОРСТХ]{2}\d{6}$');
-		 ;$$);
-		SELECT run_command_on_workers($$
-		  CREATE DOMAIN dn_edrpou TEXT CONSTRAINT edrpou_chk CHECK (VALUE ~ '^\d{8}|\d{9}|\d{10}$');
-		 ;$$);
-		<comment>DISTRIBUTE DOMAINS</comment>
-	  </sql>
-      <rollback>
-        <sql splitStatements="true" stripComments="false">
-		  SELECT run_command_on_workers($$DROP DOMAIN dn_edrpou;$$);
-		  SELECT run_command_on_workers($$DROP DOMAIN dn_passport_num;$$);
-		</sql>
-      </rollback>
-	</changeSet>
-
 </databaseChangeLog>
