@@ -1,4 +1,4 @@
-**** xref:data-model:analytics.adoc[]
-***** xref:data-model:analytic_access_control.adoc[]
-***** xref:data-model:analytic_report_export_automation.adoc[]
-**** xref:data-model:attributes_encription.adoc[]
+******* xref:data-model:analytics.adoc[]
+******** xref:data-model:analytic_access_control.adoc[]
+******** xref:data-model:analytic_report_export_automation.adoc[]
+******* xref:data-model:attributes_encription.adoc[]
