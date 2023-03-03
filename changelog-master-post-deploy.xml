@@ -26,7 +26,7 @@
 	<changeSet author="registry owner" id="version control update" runAlways="true" runOnChange="true" context="all">
 		<comment>Procedure to update registry versions</comment>
 		<sql dbms="postgresql" endDelimiter=";" splitStatements="true" stripComments="true">
-			CALL p_version_control('${reg_version}', true);
+			CALL p_version_control('${reg_version}');
 		</sql>
 	</changeSet>
 
